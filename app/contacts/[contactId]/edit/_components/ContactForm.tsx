@@ -13,20 +13,11 @@ type Props = {
 };
 export default function ContactForm({ contact }: Props) {
   const [isPending, startTransition] = useTransition();
-
+  const updateContactById = updateContact.bind(null, contact.id);
   return (
     <form
-      onSubmit={async (e) => {
-        e.preventDefault();
-
-        startTransition( async () => {
-          const formData = new FormData(e.currentTarget);
-          await updateContact(contact.id, formData);
-        });
-      
-      }}
-
-    className="flex max-w-[40rem] flex-col gap-4 @container">
+      action={updateContactById}
+      className="flex max-w-[40rem] flex-col gap-4 @container">
       <div className="grip-rows-6 grid grid-cols-1 items-center gap-2 @sm:grid-cols-[1fr_4fr] @sm:gap-4">
         <span className="flex">Name</span>
         <div className="flex gap-4">
@@ -64,7 +55,7 @@ export default function ContactForm({ contact }: Props) {
         <TextArea className="grow" defaultValue={contact.notes || undefined} name="notes" rows={6} />
       </div>
 
-    {isPending ? <p>Saving...</p> : <div className="flex gap-2 self-end">
+      <div className="flex gap-2 self-end">
         <LinkButton theme="secondary" href={`/contacts/${contact.id}`}>
           Cancel
         </LinkButton>
@@ -73,7 +64,7 @@ export default function ContactForm({ contact }: Props) {
         theme="primary" type="submit">
           Save
         </Button>
-      </div>}
+      </div>
       
     </form>
   );
