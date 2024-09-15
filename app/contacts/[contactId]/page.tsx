@@ -5,6 +5,7 @@ import { getContact } from '@/data/services/getContact';
 import GithubLogo from '@/public/github-mark.svg';
 import Favorite from './_components/Favorite';
 import DeleteContactButton from './_components/DeleteContactButton';
+import { Metadata } from 'next';
 
 type PageProps = {
   params: {
@@ -12,6 +13,18 @@ type PageProps = {
   };
 };
 
+// export async function generateMetadata(params: PageProps): Promise<Metadata> {
+//   const contact = await getContact(params.params.contactId);
+//   return contact && contact.first && contact.last
+//     ? {
+//         title: `${contact.first} ${contact.last}`,
+//         description: `Contact details for ${contact.first} ${contact.last}`,
+//       }
+//     : {
+//         title: 'Unnamed contact',
+//         description: 'Contact details',
+//       };
+// }
 export default async function ContactPage({ params }: PageProps) {
   const contact = await getContact(params.contactId);
 
