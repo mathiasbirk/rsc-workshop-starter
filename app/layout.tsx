@@ -10,6 +10,7 @@ import { getContacts } from '@/data/services/getContacts';
 import Logo from '@/public/next-js.svg';
 import type { Metadata } from 'next';
 import { createEmptyContact } from '@/data/actions/createEmptyContact';
+import SubmitButton from '@/components/ui/SubmitButton';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -32,11 +33,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <div className="flex items-center gap-2 border-b border-gray px-8 py-4">
                 <Search />
                 <form action={createEmptyContact}>
-                  <Button 
-                      type="submit" 
-                      theme="secondary">
-                      New
-                  </Button>
+                  <SubmitButton theme="secondary">New</SubmitButton>
                 </form>
               </div>
               <ContactList contacts={contacts} />

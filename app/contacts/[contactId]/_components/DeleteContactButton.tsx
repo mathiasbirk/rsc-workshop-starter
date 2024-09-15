@@ -21,7 +21,7 @@ export default function DeleteContactButton({ contactId }: { contactId: string }
         });
       }}
     >
-      <SubmitButton type="submit" theme="destroy" loading={isPending}>
+      <SubmitButton theme="destroy" loading={isPending}>
         Delete
       </SubmitButton>
     </form>
