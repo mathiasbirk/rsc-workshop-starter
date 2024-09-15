@@ -6,7 +6,6 @@ import GithubLogo from '@/public/github-mark.svg';
 import Favorite from './_components/Favorite';
 import DeleteContactButton from './_components/DeleteContactButton';
 
-
 type PageProps = {
   params: {
     contactId: string;
@@ -67,7 +66,7 @@ export default async function ContactPage({ params }: PageProps) {
           <LinkButton theme="secondary" href={`/contacts/${params.contactId}/edit`}>
             Edit
           </LinkButton>
-         <DeleteContactButton contactId={contact.id}/>
+          <DeleteContactButton contactId={contact.id} />
         </div>
       </div>
     </div>

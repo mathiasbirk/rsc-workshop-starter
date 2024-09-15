@@ -12,7 +12,7 @@ export async function favoriteContact(contactId: string, favorite: boolean) {
      await prisma.contact.update( {
         where: { id: contactId },
         data: {
-            favorite
+            favorite: !favorite
         }
     });
 
