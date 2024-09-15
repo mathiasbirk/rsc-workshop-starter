@@ -15,18 +15,5 @@ export default async function ServerComponent() {
                 <p>{contact.email}</p>
             </div>
         </div>
-        
-        // <div className='rounded border-2 border-blue-500 p-4 overflow-scroll'>
-        //         {data.map((contact) => {return (
-        //             <div>
-        //                 <h1>{contact.first}</h1>
-        //                 <p>{contact.email}</p>
-
-        //                 <ClientComponent/> 
-        //             </div>
-
-        //         )})}
-
-        // </div>
     )
 }

@@ -9,6 +9,7 @@ import Button from '@/components/ui/Button';
 import { getContacts } from '@/data/services/getContacts';
 import Logo from '@/public/next-js.svg';
 import type { Metadata } from 'next';
+import NewContactButton from '@/components/NewContactButton';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -30,9 +31,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <Suspense>
               <div className="flex items-center gap-2 border-b border-gray px-8 py-4">
                 <Search />
-                <Button type="submit" theme="secondary">
-                  New
-                </Button>
+                <NewContactButton/>
               </div>
               <ContactList contacts={contacts} />
             </Suspense>
