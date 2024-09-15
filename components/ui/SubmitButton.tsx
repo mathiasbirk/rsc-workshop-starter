@@ -26,7 +26,7 @@ export default function SubmitButton({
 
   return (
     <Button theme={theme} {...otherProps} disabled={isSubmitting || disabled} type="submit" className={className}>
-      {loading ? (
+      {isSubmitting ? (
         <div className="flex items-center justify-center gap-2">
           {children}
           <div className="h-fit w-fit animate-spin">

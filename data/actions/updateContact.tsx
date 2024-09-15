@@ -1,20 +1,33 @@
-'use server'
+'use server';
 
-import { prisma } from "@/db";
-import { slow } from "@/utils/slow";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { prisma } from '@/db';
+import { slow } from '@/utils/slow';
+import { contactSchema, ContactSchemaErrorType } from '@/validations/contactSchema';
+import { error } from 'console';
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
-export async function updateContact(contactId: string, data: FormData) {
-    await slow();
+type State = {
+  errors: ContactSchemaErrorType;
+};
 
-    const contact = Object.fromEntries(data);
+export async function updateContact(contactId: string, _prevState: State, formData: FormData) {
+  await slow();
 
-     await prisma.contact.update( {
-        where: { id: contactId },
-        data: contact
-    });
+  const data = Object.fromEntries(formData);
+  const result = contactSchema.safeParse(data);
 
-    revalidatePath('/')
-    redirect(`/contacts/${contactId}`);
+  if (!result.success) {
+    return {
+      errors: result.error.formErrors,
+    };
+  }
+
+  await prisma.contact.update({
+    where: { id: contactId },
+    data: result,
+  });
+
+  revalidatePath('/');
+  redirect(`/contacts/${contactId}`);
 }

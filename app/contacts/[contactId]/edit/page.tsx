@@ -1,6 +1,6 @@
 import { getContact } from '@/data/services/getContact';
 import ContactForm from './_components/ContactForm';
-
+import { ErrorBoundary } from 'react-error-boundary';
 type PageProps = {
   params: {
     contactId: string;
