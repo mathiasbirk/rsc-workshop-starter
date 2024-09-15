@@ -17,6 +17,15 @@ export default function ContactForm({ contact }: Props) {
 
   const [state, updateContactAction] = useActionState(updateContactById, {
     errors: {} as ContactSchemaErrorType,
+    data: {
+      avatar: contact.avatar,
+      email: contact.email,
+      first: contact.first,
+      github: contact.github,
+      last: contact.last,
+      notes: contact.notes,
+      position: contact.position,
+    },
   });
   return (
     <form action={updateContactAction} className="flex max-w-[40rem] flex-col gap-4 @container">
@@ -24,7 +33,7 @@ export default function ContactForm({ contact }: Props) {
         <span className="flex">Name</span>
         <div className="flex gap-4">
           <Input
-            defaultValue={contact.first || undefined}
+            defaultValue={state.data.first || undefined}
             aria-label="First name"
             name="first"
             type="text"
@@ -32,36 +41,36 @@ export default function ContactForm({ contact }: Props) {
           />
           <Input
             aria-label="Last name"
-            defaultValue={contact.last || undefined}
+            defaultValue={state.data.last || undefined}
             name="last"
             placeholder="Last"
             type="text"
           />
         </div>
         <label htmlFor="position">Position</label>
-        <Input defaultValue={contact.position || undefined} name="position" placeholder="Konsulent" type="text" />
+        <Input defaultValue={state.data.position || undefined} name="position" placeholder="Konsulent" type="text" />
         <label htmlFor="email">Email</label>
         <Input
-          defaultValue={contact.email || undefined}
+          defaultValue={state.data.email || undefined}
           name="email"
           placeholder="moa@inmeta.no"
           type="text"
-          errors={state.errors.fieldErrors?.email}
+          errors={state.errors?.fieldErrors?.email}
         />
         <label htmlFor="github">Github</label>
-        <Input defaultValue={contact.github || undefined} name="github" placeholder="@moa" type="text" />
+        <Input defaultValue={state.data.github || undefined} name="github" placeholder="@moa" type="text" />
         <label htmlFor="avatar">Avatar URL</label>
         <Input
-          defaultValue={contact.avatar || undefined}
+          defaultValue={state.data.avatar || undefined}
           name="avatar"
           placeholder="https:// media.licdn.com/dms/image/example"
           type="text"
-          errors={state.errors.fieldErrors?.avatar}
+          errors={state.errors?.fieldErrors?.avatar}
         />
         <label className="self-start" htmlFor="notes">
           Notes
         </label>
-        <TextArea className="grow" defaultValue={contact.notes || undefined} name="notes" rows={6} />
+        <TextArea className="grow" defaultValue={state.data.notes || undefined} name="notes" rows={6} />
       </div>
 
       <div className="flex gap-2 self-end">
