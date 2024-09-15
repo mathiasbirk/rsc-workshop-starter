@@ -1,14 +1,25 @@
-import React from 'react';
+'use client';
+import React, { useTransition } from 'react';
 import { cn } from '@/utils/cn';
 import type { Contact } from '@prisma/client';
+import { favoriteContact } from '@/data/actions/favoriteContact';
 
 export default function Favorite({ contact }: { contact: Contact }) {
-  const favorite = contact.favorite;
+  let favorite = contact.favorite;
+
+  const [isPending, startTransition] = useTransition();
 
   return (
     <button
+    onClick={ () => {
+      startTransition( async () => {
+        favoriteContact(contact.id, !favorite);
+      });
+      
+    }}
       className={cn(
         favorite ? 'text-yellow-500' : 'text-gray-dark',
+        isPending ? 'animate-bounce text-yellow-600 ' : '',
         'flex text-2xl font-normal shadow-none hover:text-yellow-400 hover:shadow-none',
       )}
       aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
