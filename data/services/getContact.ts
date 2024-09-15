@@ -15,3 +15,13 @@ export const getContact = cache(async (contactId: string) => {
 
   return contact;
 });
+
+// export const getContact = unstable_cache(
+//   async (contactId: string) => {
+//     return getContactDedupe(contactId);
+//   },
+//   ['contact'],
+//   {
+//     tags: ['contact'],
+//   },
+// );
