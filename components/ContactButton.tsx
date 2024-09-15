@@ -1,20 +1,17 @@
 'use client';
 import Link from 'next/link';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import React, { useTransition } from 'react';
 import { cn } from '@/utils/cn';
+import { routes, useSafeSearchParams } from '@/validations/routeSchema';
 import type { Contact } from '@prisma/client';
 
 export default function ContactButton({ contact }: { contact: Contact }) {
-
-  const pathname= usePathname();
+  const pathname = usePathname();
   const isActive = pathname.includes(`/contacts/${contact.id}`);
 
-  const router = useRouter();
-
-  const [isPending, startTransition] = useTransition();
-  const searchParams = useSearchParams();
-  const query = searchParams.get('q') || '';
+  const [isPending] = useTransition();
+  const query = useSafeSearchParams('home');
 
   return (
     <Link
@@ -29,7 +26,9 @@ export default function ContactButton({ contact }: { contact: Contact }) {
       //     router.push(`/contacts/${contact.id}?q=${query}`);
       //   });
       // }}
-      href={`/contacts/${contact.id}?q=${query}`}
+
+      href={routes.contactId({ contactId: contact.id, search: { q: query.q } })}
+      // href={`/contacts/${contact.id}?q=${query}`}
     >
       {contact.first || contact.last ? (
         <>
